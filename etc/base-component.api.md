@@ -4,8 +4,76 @@
 
 ```ts
 
-// @public
-export function example(): boolean;
+import { IToken } from 'ebnf';
+import { Parser } from 'ebnf';
+
+// @public (undocumented)
+export class BaseClosure extends Closure {
+    constructor(lib?: Record<string | symbol, CallableFunction_2>);
+    // (undocumented)
+    defJsFunction(name: string | symbol, fn: (...args: any[]) => any): void;
+    // (undocumented)
+    get(name: string | symbol): any;
+}
+
+// @public (undocumented)
+type CallableFunction_2 = (callerNode: IToken, argNodes: IToken[], ctx: Closure) => Promise<any> | any;
+
+export { CallableFunction_2 as CallableFunction }
+
+// @public (undocumented)
+export class Closure {
+    constructor(parentContext: Closure | null);
+    // (undocumented)
+    def(name: string | symbol, value: any): void;
+    // (undocumented)
+    defn(name: string | symbol, value: CallableFunction_2): void;
+    // (undocumented)
+    get(name: string | symbol): any;
+    // (undocumented)
+    getChild(): Closure;
+    // (undocumented)
+    parentContext: Closure | null;
+    // (undocumented)
+    variables: Map<string | symbol, any>;
+}
+
+// @public (undocumented)
+export function evaluate(node: IToken, closure: Closure): Promise<any>;
+
+// @public (undocumented)
+export interface ILineMapper {
+    // (undocumented)
+    position(pos: number): ITextPosition;
+}
+
+// @public (undocumented)
+export const internalParser: Parser;
+
+// @public (undocumented)
+export interface ITextPosition {
+    column: number;
+    line: number;
+    position: number;
+}
+
+// @public (undocumented)
+export class LineMapper implements ILineMapper {
+    constructor(content: string, absPath: string);
+    // (undocumented)
+    initMapping(): void;
+    // (undocumented)
+    position(_pos: number): ITextPosition;
+}
+
+// @public (undocumented)
+export function parse(code: string): ParseResult;
+
+// @public (undocumented)
+export type ParseResult = {
+    document: IToken;
+    syntaxErrors: IToken[];
+};
 
 
 // (No @packageDocumentation comment for this package)

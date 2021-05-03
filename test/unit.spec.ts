@@ -1,8 +1,8 @@
-import { example } from "../src"
+import { parse } from "../src"
 import expect from "expect"
 
 describe("unit", () => {
   it("smoke test", () => {
-    expect(example()).toEqual(true)
+    expect(parse('(a 123)').syntaxErrors).toEqual([])
   })
 })
