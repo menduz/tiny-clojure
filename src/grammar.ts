@@ -5,7 +5,7 @@
 export const grammar = `
 {ws=explicit}
 Document          ::= WS* Forms RestSyntaxError* EOF {ws=implicit}
-Form              ::= (&"(" List | &"[" Vector | &"{" Map| &"#{" Set | &"'" Quote | &"\`"  Backtick | &"@" Deref | &"~@" UnquoteSplicing | &"~" Unquote | &"#(" Lambda | !';' Symbol | &":" Keyword | Literal | Discard | Dispatch | VarQuote | Regex | Tag | SyntaxError) {pin=1,fragment=true}
+Form              ::= (&"(" List | &"[" Vector | &"{" Map| &"#{" Set | &"'" Quote | &"\`"  Backtick | &"@" Deref | &"~@" UnquoteSplicing | &"~" Unquote | &"#(" Lambda | &":" Keyword | Literal | !';' Symbol | Discard | Dispatch | VarQuote | Regex | Tag | SyntaxError) {pin=1,fragment=true}
 Forms             ::= (Form WS* | Comment WS*)* {fragment=true}
 List              ::= OPEN_PAREN WS* Forms? WS* CLOSE_PAREN {pin=1,recoverUntil=CLOSE_PAREN}
 Vector            ::= OPEN_ARRAY WS* Forms? WS* CLOSE_ARRAY {pin=1,recoverUntil=CLOSE_ARRAY}
@@ -25,7 +25,7 @@ Unquote           ::= "~"  Form {pin=1}
 SyntaxError       ::= (!([\(\)\{\};,"'#x20#x09#x0A#x0D,]|'['|']') [#x00-#xFFFF])+
 RestSyntaxError   ::= ([#x00-#xFFFF])+
 Literal           ::= PostfixNumber | String | ParamName {fragment=true}
-PostfixNumber     ::= (HexLiteral | Number) Symbol? {pin=1,simplifyWhenOneChildren=true}
+PostfixNumber     ::= (HexLiteral | Number | NegNumber) Symbol? {pin=1,simplifyWhenOneChildren=true}
 Number            ::= !('0x') ("0" | [1-9] [0-9]*) ("." [0-9]+)? (("e" | "E") ( "-" | "+" )? ("0" | [1-9] [0-9]*))? {pin=2}
 NegNumber         ::= '-'? Number {pin=2}
 HexLiteral        ::= "0x" [0-9A-Fa-f]+ {pin=1}
