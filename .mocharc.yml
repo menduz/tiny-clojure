@@ -3,7 +3,6 @@ require:
   # - './test/setup.ts'
 reporter:
   - 'spec'
-  - list
 watch-files:
   - 'dist/**/*.js'
   - 'test/**/*.ts'

@@ -19,7 +19,7 @@ export type ParseResult = {
  */
 export function parse(code: string): ParseResult {
   const syntaxErrors: IToken[] = []
-  const document = internalParser.getAST(code, RULES[0].name)
+  const document = internalParser.getAST(code + "\n", RULES[0].name)
   walk(document, (node) => {
     // discard nodes
     node.children = node.children.filter(($) => $.type != "Discard" && $.type != "Comment")
