@@ -1,4 +1,5 @@
 import { IToken } from "ebnf"
+
 /**
  * @public
  */
@@ -12,6 +13,7 @@ export function walkPreOrder<T extends { children: any[] } = IToken>(
 
   return leFn
 }
+
 /**
  * @public
  */

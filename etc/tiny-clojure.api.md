@@ -9,37 +9,52 @@ import { Parser } from 'ebnf';
 
 // @public (undocumented)
 export class BaseClosure extends Closure {
-    constructor(lib?: Record<string | symbol, CallableFunction_2>);
+    constructor(lib?: Record<string | symbol, Function>);
     // (undocumented)
-    defJsFunction(name: string | symbol, fn: (...args: any[]) => any): void;
-    // (undocumented)
-    get(name: string | symbol): any;
+    defJsFunction(name: string | symbol, fn: Function): void;
 }
-
-// @public (undocumented)
-type CallableFunction_2 = (callerNode: IToken, argNodes: IToken[], ctx: Closure) => Promise<any> | any;
-
-export { CallableFunction_2 as CallableFunction }
 
 // @public (undocumented)
 export class Closure {
     constructor(parentContext: Closure | null);
     // (undocumented)
-    def(name: string | symbol, value: any): void;
+    def(name: string | symbol, value: any): Var;
     // (undocumented)
-    defn(name: string | symbol, value: CallableFunction_2): void;
+    getChildClosure(): Closure;
     // (undocumented)
-    get(name: string | symbol): any;
-    // (undocumented)
-    getChild(): Closure;
+    getVar(name: string | symbol): Var | undefined;
     // (undocumented)
     parentContext: Closure | null;
+    // Warning: (ae-forgotten-export) The symbol "Var" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
-    variables: Map<string | symbol, any>;
+    variables: Map<string | symbol, Var>;
 }
 
+// Warning: (ae-forgotten-export) The symbol "Form" needs to be exported by the entry point index.d.ts
+//
+// @public
+export function evaluate(form: Form, env: Closure): Promise<any>;
+
 // @public (undocumented)
-export function evaluate(node: IToken, closure: Closure): Promise<any>;
+export function first(form: Form): Form | undefined;
+
+// @public (undocumented)
+export namespace Forms {
+    const // Warning: (ae-forgotten-export) The symbol "Meta" needs to be exported by the entry point index.d.ts
+    // Warning: (ae-forgotten-export) The symbol "List" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    list: (children: Form[], meta?: Meta) => List;
+    const // (undocumented)
+    symbol: (sname: string, meta?: Meta) => Form;
+    const // (undocumented)
+    doList: (children: Form[], meta?: Meta) => Form;
+    const // (undocumented)
+    DOT: Form<string>;
+    const // (undocumented)
+    DO: Form<string>;
+}
 
 // @public (undocumented)
 export interface ILineMapper {
@@ -47,7 +62,7 @@ export interface ILineMapper {
     position(pos: number): ITextPosition;
 }
 
-// @public (undocumented)
+// @public
 export const internalParser: Parser;
 
 // @public (undocumented)
@@ -58,6 +73,9 @@ export interface ITextPosition {
 }
 
 // @public (undocumented)
+export function lget(obj: any, sname: string | symbol): any;
+
+// @public (undocumented)
 export class LineMapper implements ILineMapper {
     constructor(content: string, absPath: string);
     // (undocumented)
@@ -66,15 +84,26 @@ export class LineMapper implements ILineMapper {
     position(_pos: number): ITextPosition;
 }
 
+// @public
+export function materialize(forms: Form[], env: Closure): Promise<any[]>;
+
 // @public (undocumented)
 export function parse(code: string): ParseResult;
 
 // @public (undocumented)
 export type ParseResult = {
-    document: IToken;
+    document: Form;
     syntaxErrors: IToken[];
 };
 
+// @public
+export function printForm(form: Form): string;
+
+// @public (undocumented)
+export function second(form: Form): Form | undefined;
+
+// @public
+export const SPECIAL_FORM: unique symbol;
 
 // (No @packageDocumentation comment for this package)
 

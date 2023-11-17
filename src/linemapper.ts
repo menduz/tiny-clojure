@@ -5,6 +5,7 @@
 export interface ILineMapper {
   position(pos: number): ITextPosition;
 }
+
 /**
  * @public
  */
@@ -24,6 +25,7 @@ export interface ITextPosition {
    */
   position: number;
 }
+
 /**
  * @public
  */

@@ -1,40 +1,26 @@
-import { IToken } from "ebnf"
-
-/**
- * @public
- */
-export type CallableFunction = (callerNode: IToken, argNodes: IToken[], ctx: Closure) => Promise<any> | any
+import { Var } from "./types"
 
 /**
  * @public
  */
 export class Closure {
-  variables = new Map<string | symbol, any>()
+  variables = new Map<string | symbol, Var>()
 
-  constructor(public parentContext: Closure | null) {}
+  constructor(public parentContext: Closure | null) { }
 
-  def(name: string | symbol, value: any) {
-    this.variables.set(name, value)
+  def(name: string | symbol, value: any): Var {
+    const v = new Var(name, undefined, value)
+    this.variables.set(name, v)
+    return v
   }
 
-  defn(name: string | symbol, value: CallableFunction) {
-    const fn: CallableFunction = (...args) => {
-      try {
-        return value(...args)
-      } catch (e) {
-        throw new Error('Error calling JS function: "' + name.toString() + '": ' + e.toString())
-      }
-    }
-    this.variables.set(name, fn)
-  }
-
-  get(name: string | symbol): any {
+  getVar(name: string | symbol): Var | undefined {
     if (this.variables.has(name)) return this.variables.get(name)
-    if (this.parentContext) return this.parentContext.get(name)
+    if (this.parentContext) return this.parentContext.getVar(name)
     return undefined
   }
 
-  getChild() {
+  getChildClosure() {
     return new Closure(this)
   }
 }
