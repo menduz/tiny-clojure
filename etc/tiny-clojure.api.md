@@ -57,6 +57,9 @@ export namespace Forms {
 }
 
 // @public (undocumented)
+export function getSymbolText(form: Form): string | never;
+
+// @public (undocumented)
 export interface ILineMapper {
     // (undocumented)
     position(pos: number): ITextPosition;
