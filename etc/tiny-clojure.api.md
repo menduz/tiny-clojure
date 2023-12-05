@@ -10,8 +10,14 @@ import { Parser } from 'ebnf';
 // @public (undocumented)
 export class BaseClosure extends Closure {
     constructor(lib?: Record<string | symbol, Function>);
+    // Warning: (ae-forgotten-export) The symbol "Var" needs to be exported by the entry point index.d.ts
+    //
     // (undocumented)
-    defJsFunction(name: string | symbol, fn: Function): void;
+    defJsFunction(name: string | symbol, fn: Function): Var;
+    // Warning: (ae-forgotten-export) The symbol "CallableForm" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    defSpecialFormFunction(name: string, fn: CallableForm): Var;
 }
 
 // @public (undocumented)
@@ -25,8 +31,6 @@ export class Closure {
     getVar(name: string | symbol): Var | undefined;
     // (undocumented)
     parentContext: Closure | null;
-    // Warning: (ae-forgotten-export) The symbol "Var" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     variables: Map<string | symbol, Var>;
 }

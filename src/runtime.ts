@@ -223,7 +223,11 @@ export class BaseClosure extends Closure {
   }
 
   defJsFunction(name: string | symbol, fn: Function) {
-    this.def(name, fn)
+    return this.def(name, fn)
+  }
+
+  defSpecialFormFunction(name: string, fn: CallableForm) {
+    return this.def(name, withSpecialFormMeta(fn))
   }
 }
 
