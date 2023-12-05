@@ -7,19 +7,19 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/well-known-components/base-component.git"
+    "url": "git+https://github.com/menduz/tiny-clojure.git"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/well-known-components/base-component/issues"
+    "url": "https://github.com/menduz/tiny-clojure/issues"
   },
   "prettier": {
     "printWidth": 120,
     "semi": false
   },
-  "homepage": "https://github.com/well-known-components/base-component#readme",
+  "homepage": "https://github.com/menduz/tiny-clojure#readme",
   "devDependencies": {
     "@microsoft/api-extractor": "^7.38.3",
     "@types/jest": "^29.5.8",
